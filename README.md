@@ -1,7 +1,7 @@
-- 👋 Hi, I’m Jahan Murudi
-- 👀 I’m interested in Automotive, Embeded, Consumer Electronics Product Architect and development
-- 🌱 I’m currently learning: Leadership and product management skills
-- 💞️ I’m looking to collaborate: On Automotive, Embedded product Startup
+- 👋 Hi, I’m Jahan Murudi, welcome.
+- 👀 I'm interested in automotive, embedded, and consumer electronics product development.
+- 🌱 I’m currently learning: Leadership and product management skills.
+- 💞️ I’m looking to collaborate: On Automotive, Embedded product Startup.
 - 📫 How to reach me ...email:- jahanmurudi@gmail.com
 
 <!---
