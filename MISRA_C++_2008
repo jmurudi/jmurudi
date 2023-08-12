@@ -1,0 +1,1205 @@
+
+/***********************************************************************************************
+1. Naming Conventions
+************************************************************************************************/
+
+// Good: Use descriptive and meaningful names for variables and functions
+int numberOfItems;
+void calculateDiscount(int itemPrice);
+
+// Bad: Avoid single-letter variable names or unclear names
+int n;
+void func(int a);
+
+
+/***********************************************************************************************
+2. Rule 2-10-2 Use of Constants
+************************************************************************************************/
+
+
+// Good: Use constants for magic numbers or values that won't change
+const int MAX_ATTEMPTS = 3;
+const double PI = 3.14159;
+
+// Bad: Avoid using magic numbers directly in the code
+if (count > 5)
+
+
+/***********************************************************************************************
+3. Memory Management
+************************************************************************************************/
+
+// Good: Use smart pointers or RAII (Resource Acquisition Is Initialization) to manage resources
+std::unique_ptr<MyClass> ptr = std::make_unique<MyClass>();
+
+// Bad: Avoid raw pointers without proper ownership and resource management
+MyClass* ptr = new MyClass();
+
+
+/***********************************************************************************************
+4. Error Handling
+************************************************************************************************/
+
+// Good: Properly handle exceptions and provide informative error messages
+try {
+    // Code that may throw an exception
+} catch (const std::exception& ex) {
+    std::cerr << "Exception occurred: " << ex.what() << std::endl;
+}
+
+// Bad: Avoid catching exceptions without proper handling or logging
+try {
+    // Code that may throw an exception
+} catch (...) {
+    // Empty catch block
+}
+
+
+/***********************************************************************************************
+5. Object-Oriented Design:
+************************************************************************************************/
+
+// Good: Follow the principles of encapsulation and proper class design
+class Car {
+private:
+    std::string make;
+    std::string model;
+public:
+    void startEngine();
+    void stopEngine();
+};
+
+// Bad: Avoid exposing internal implementation details and violating encapsulation
+
+struct Car {
+    std::string make;
+    std::string model;
+};
+
+
+/***********************************************************************************************
+6. Applying const-correctness::
+************************************************************************************************/
+
+// Good: Use const when appropriate to indicate immutability
+
+void printMessage(const std::string& message);
+
+// Bad: Avoid unnecessary mutability and potential bugs
+
+void printMessage(std::string& message);
+
+/***********************************************************************************************
+7. Avoiding the use of global variables
+************************************************************************************************/
+
+// Good: Encapsulate data within a class or function
+class MyClass {
+private:
+    int myData;
+public:
+    void setData(int data) { myData = data; }
+    int getData() const { return myData; }
+};
+
+// Bad: Avoid global variables whenever possible
+int globalData;
+
+/***********************************************************************************************
+8. Using explicit keyword for constructors
+************************************************************************************************/
+
+// Good: Make constructors explicit to prevent implicit type conversions
+class MyClass {
+public:
+    explicit MyClass(int value) { /* constructor code */ }
+};
+
+// Bad: Avoid implicit type conversions that may lead to unexpected behavior
+class MyClass {
+public:
+    MyClass(int value) { /* constructor code */ }
+};
+
+void func(MyClass obj) {
+    // Function that expects a MyClass object
+}
+
+// Usage with explicit constructor
+MyClass obj(42);
+func(obj);
+
+// Usage without explicit constructor
+func(42); // Implicit type conversion, potentially unintended
+
+
+/***********************************************************************************************
+9. Limiting the use of macros
+************************************************************************************************/
+
+
+// Good: Prefer using const variables or constexpr instead of macros
+
+const int MAX_VALUE = 100;
+constexpr int ARRAY_SIZE = 10;
+
+// Bad: Avoid using macros for constants whenever possible
+
+#define MAX_VALUE 100
+#define ARRAY_SIZE 10
+
+
+/***********************************************************************************************
+9. Avoiding magic numbers:
+************************************************************************************************/
+
+// Good: Use named constants or enumerations for clarity
+const int MAX_ITEMS = 10;
+int items[MAX_ITEMS];
+
+// Bad: Avoid using magic numbers directly in the code
+
+int items[10];
+
+
+/***********************************************************************************************
+9. Proper use of loops and iterators
+************************************************************************************************/
+
+
+// Good: Use range-based for loop for iterating over a container
+std::vector<int> numbers = {1, 2, 3, 4, 5};
+for (const auto& number : numbers) {
+    // Process each number
+}
+
+// Bad: Avoid using an index-based loop when not necessary
+for (size_t i = 0; i < numbers.size(); ++i) {
+    // Process each number using index
+}
+
+/***********************************************************************************************
+10. Initialization and assignment
+************************************************************************************************/
+
+// Good: Initialize variables at the point of declaration
+int value = 42;
+
+// Bad: Avoid uninitialized variables or separate initialization
+int value;
+value = 42;
+
+
+/***********************************************************************************************
+11. Initialization and assignment
+************************************************************************************************/
+// Good: Use member initializer list in constructors
+class MyClass {
+private:
+    int value;
+public:
+    MyClass(int val) : value(val) {
+        // Constructor code
+    }
+};
+
+// Bad: Avoid using assignment inside constructors
+class MyClass {
+private:
+    int value;
+public:
+    MyClass(int val) {
+        value = val; // Assignment instead of initializer list
+        // Constructor code
+    }
+};
+
+
+/***********************************************************************************************
+12. Proper use of comments:
+************************************************************************************************/
+// Good: Use comments to explain the purpose of code or provide clarifications
+int result = calculateValue(); // Calculate the value based on input
+
+// Bad: Avoid redundant or unclear comments
+int result = calculateValue(); // Perform calculation
+
+
+/***********************************************************************************************
+13. Avoiding deep nesting of control structures:
+************************************************************************************************/
+// Good: Use early returns to avoid deep nesting
+bool isValueValid(int value) {
+    if (value < 0) {
+        return false;
+    }
+
+    if (value > 100) {
+        return false;
+    }
+
+    return true;
+}
+
+// Bad: Excessive nesting can make code hard to read and understand
+bool isValueValid(int value) {
+    if (value >= 0) {
+        if (value <= 100) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/***********************************************************************************************
+14. Proper use of const references:
+************************************************************************************************/
+// Good: Pass large objects by const reference to avoid unnecessary copies
+void processData(const std::vector<int>& data) {
+    // Process the data
+}
+
+// Bad: Pass large objects by value, causing unnecessary copies
+void processData(std::vector<int> data) {
+    // Process the data
+}
+
+
+/***********************************************************************************************
+15. Avoiding redundant or unnecessary code:
+
+************************************************************************************************/
+// Good: Remove redundant code that does not affect the program's behavior
+int result = calculateValue();
+return result;
+
+// Bad: Unnecessary code adds complexity and may confuse readers
+int result = calculateValue();
+result = result; // Redundant assignment
+return result;
+
+
+/***********************************************************************************************
+16. Proper use of object-oriented principles:
+
+************************************************************************************************/
+// Good: Encapsulate data and behavior within classes
+class Car {
+private:
+    std::string make;
+    std::string model;
+public:
+    void startEngine();
+    void stopEngine();
+};
+
+// Bad: Avoid exposing internal implementation details
+struct Car {
+    std::string make;
+    std::string model;
+};
+
+
+/***********************************************************************************************
+17.Proper use of switch statements
+
+************************************************************************************************/
+// Good: Include a default case to handle unexpected values
+int num = 5;
+switch (num) {
+    case 1:
+        // Handle case 1
+        break;
+    case 2:
+        // Handle case 2
+        break;
+    default:
+        // Handle all other cases
+        break;
+}
+
+// Bad: Avoid omitting the default case
+int num = 5;
+switch (num) {
+    case 1:
+        // Handle case 1
+        break;
+    case 2:
+        // Handle case 2
+        break;
+    // Missing default case
+}
+
+
+/***********************************************************************************************
+18.Avoiding unnecessary dynamic memory allocation:
+************************************************************************************************/
+// Good: Use automatic storage duration for local variables
+void processData() {
+    int data[100];
+    // Use the data array
+}
+
+// Bad: Avoid unnecessary dynamic memory allocation
+
+void processData() {
+    int* data = new int[100];
+    // Use the dynamically allocated memory
+    delete[] data;
+}
+
+
+/***********************************************************************************************
+19. Proper use of const member functions with mutable members:
+
+************************************************************************************************/
+class Counter {
+private:
+    mutable int count; // Mutable member variable
+public:
+    void increment() const {
+        ++count; // Allowed because count is mutable
+    }
+};
+
+// Good: Calling a const member function on a const object is allowed
+const Counter c;
+c.increment();
+
+// Bad: Modifying a non-mutable member in a const member function
+class Counter {
+private:
+    int count; // Non-mutable member variable
+public:
+    void increment() const {
+        ++count; // Error: Attempting to modify a non-mutable member in a const function
+    }
+};
+
+
+/***********************************************************************************************
+20. Proper use of range checking in array accesses:
+
+************************************************************************************************/
+// Good: Perform bounds checking before accessing array elements
+int array[10];
+int index = 5;
+if (index >= 0 && index < 10) {
+    int value = array[index];
+}
+
+// Bad: Avoid accessing array elements without bounds checking
+int array[10];
+int index = 12;
+int value = array[index]; // Out-of-bounds access
+
+/***********************************************************************************************
+21. Proper use of const iterators:
+************************************************************************************************/
+// Good: Use const iterators when iterating over a const container
+std::vector<int> numbers = {1, 2, 3, 4, 5};
+for (std::vector<int>::const_iterator it = numbers.begin(); it != numbers.end(); ++it) {
+    // Process each number (read-only)
+}
+
+// Bad: Avoid using non-const iterators when iterating over a const container
+const std::vector<int> numbers = {1, 2, 3, 4, 5};
+for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); ++it) {
+    // Error: Attempting to modify a const container using a non-const iterator
+}
+
+/***********************************************************************************************
+22. Avoiding redundant or unnecessary code:
+************************************************************************************************/
+// Good: Use nullptr for null pointer assignment
+int* ptr = nullptr;
+
+// Bad: Avoid using NULL or 0 for null pointer assignment
+int* ptr = NULL;
+int* ptr = 0;
+
+/***********************************************************************************************
+23. Proper use of preprocessor directives:
+************************************************************************************************/
+// Good: Use conditional compilation with proper formatting
+#ifdef DEBUG_MODE
+    // Debug-specific code
+#else
+    // Release-specific code
+#endif
+
+// Bad: Avoid improper formatting or inconsistent use of preprocessor directives
+#ifdef DEBUG_MODE
+    // Debug-specific code
+    #ifdef LOGGING_ENABLED
+        // Logging-related code
+    #endif
+#else
+    // Release-specific code
+#endif
+
+/***********************************************************************************************
+24. Proper use of const references in function parameters:
+************************************************************************************************/
+// Good: Pass large objects by const reference to avoid unnecessary copies
+void processData(const std::vector<int>& data) {
+    // Process the data
+}
+
+// Bad: Avoid passing large objects by value, causing unnecessary copies
+void processData(std::vector<int> data) {
+    // Process the data
+}
+
+/***********************************************************************************************
+25. Proper use of scope and lifetime of variables
+************************************************************************************************/
+// Good: Declare variables in the smallest scope necessary
+int result = 0;
+if (condition) {
+    result = calculateResult();
+    // Use the result variable within the if block
+} else {
+    result = calculateAlternateResult();
+    // Use the result variable within the else block
+}
+
+// Bad: Avoid declaring variables outside of their necessary scope
+int result = 0;
+if (condition) {
+    result = calculateResult();
+}
+// Use the result variable outside of the if block
+
+/***********************************************************************************************
+26. Proper use of static member variables:
+************************************************************************************************/
+class Counter {
+private:
+    static int count; // Static member variable
+public:
+    void increment() {
+        ++count; // Accessing and modifying the static member variable
+    }
+};
+
+// Good: Static member variable accessed through the class
+Counter::count = 0;
+
+// Bad: Avoid accessing static member variable through an object instance
+Counter c;
+c.count = 0; // Error: Attempting to access a static member through an object instance
+
+
+/***********************************************************************************************
+20. Proper initialization of variables:
+************************************************************************************************/
+// Good: Initialize variables when they are declared
+int value = 0;
+
+// Bad: Avoid leaving variables uninitialized
+int value; // Error: Uninitialized variable
+value = 5; // Initialize the variable separately
+
+/***********************************************************************************************
+21. Proper handling of file input/output:
+************************************************************************************************/
+// Good: Check if file operations are successful
+std::ifstream inputFile("data.txt");
+if (inputFile.is_open()) {
+    // File is opened successfully, perform operations
+    // ...
+    inputFile.close(); // Close the file when done
+} else {
+    // Handle the error: file failed to open
+}
+
+// Bad: Avoid ignoring file operations without error checking
+std::ifstream inputFile("data.txt");
+// No error checking, assuming the file always opens successfully
+
+/***********************************************************************************************
+22. Proper use of const pointers:
+************************************************************************************************/
+// Good: Use const pointers to indicate non-modifiable data
+const int* constPtr = &value;
+// (*constPtr) = 10; // Error: Attempting to modify const data through a const pointer
+
+// Bad: Avoid using non-const pointers to const data
+int* ptr = &constValue; // Warning: Discarding const qualifier
+
+/***********************************************************************************************
+22. Proper use of assert statements for debugging
+************************************************************************************************/
+// Good: Use assert statements to check for conditions during debugging
+int value = calculateValue();
+assert(value > 0); // Check if value is greater than 0
+
+// Bad: Avoid using assert statements for normal program flow
+int value = calculateValue();
+if (value <= 0) {
+    // Handle the error: value is not greater than 0
+}
+
+/***********************************************************************************************
+23. Rule 4-2-1: Avoid implicit conversions that may lose information.
+
+************************************************************************************************/
+// Good: Use static_cast to perform explicit type conversion
+uint32_t value1 = static_cast<uint32_t>(signedValue);
+
+// Bad: Avoid implicit type conversion that may lose information
+uint32_t value2 = signedValue;
+
+
+/***********************************************************************************************
+24. Rule 5-0-4: Avoid the use of pointers to functions.
+************************************************************************************************/
+// Good: Use function objects or lambda functions instead of function pointers
+std::function<void()> funcObject = []() { /* Function body */ };
+funcObject();
+
+// Bad: Avoid using function pointers
+void (*funcPointer)() = &myFunction;
+funcPointer();
+
+/***********************************************************************************************
+25. Rule 6-0-6: Use a typedef or type alias for function types.
+************************************************************************************************/
+// Good: Use typedef or type alias for function types
+
+using MyFunctionType = void(int);
+MyFunctionType* myFunctionPtr;
+
+// Bad: Avoid using function types directly
+
+
+void (*myFunctionPtr)(int);
+
+/***********************************************************************************************
+26. Rule 8-3-1: Use nullptr instead of 0 or NULL for null pointers.
+************************************************************************************************/
+// Good: Use nullptr for null pointer assignment
+int* nullPtr = nullptr;
+
+// Bad: Avoid using 0 or NULL for null pointer assignment
+int* nullPtr = 0;
+int* nullPtr = NULL;
+/***********************************************************************************************
+27. Rule 4-10-1: Avoid using floating-point types in loop control variables.
+************************************************************************************************/
+// Good: Use integer types for loop control variables
+for (int i = 0; i < count; ++i) {
+    // Loop body
+}
+
+// Bad: Avoid using floating-point types for loop control variables
+for (float i = 0.0f; i < count; ++i) {
+    // Loop body
+}
+
+/***********************************************************************************************
+28. Rule 5-0-15: Avoid using the #pragma directive to suppress 
+************************************************************************************************/
+// Good: Refactor the code to eliminate the need for #pragma directives
+void someFunction() {
+    // Code without suppressed warnings
+}
+
+// Bad: Avoid using #pragma directives to suppress warnings
+#pragma diag_suppress 1234
+void someFunction() {
+    // Code with suppressed warnings
+}
+
+/***********************************************************************************************
+29. Rule 6-5-1: Avoid defining function-like macros.
+************************************************************************************************/
+// Good: Use inline functions or constexpr instead of function-like macros
+
+
+inline int addNumbers(int a, int b) {
+    return a + b;
+}
+
+// Bad: Avoid using function-like macros
+
+
+#define ADD_NUMBERS(a, b) ((a) + (b))
+
+/***********************************************************************************************
+30. Rule 8-0-1: Avoid using variable-length arrays (VLAs).
+************************************************************************************************/
+// Good: Use std::vector or std::array for dynamically sized arrays
+std::vector<int> numbers(count);
+numbers[0] = 1;
+// ...
+
+// Bad: Avoid using variable-length arrays
+int numbers[count]; // Error: Variable-length array
+
+/***********************************************************************************************
+31. Rule 16-0-1: Avoid using #undef directive.
+************************************************************************************************/
+// Good: Avoid using #undef directive
+const int MAX_VALUE = 100;
+
+// Bad: Avoid using #undef directive
+#undef MAX_VALUE
+
+/***********************************************************************************************
+32. Rule 5-0-8: Avoid using static_cast to implicitly cast away constness.
+************************************************************************************************/
+// Good: Use const_cast for explicit removal of constness
+const int* constPtr = &value;
+int* nonConstPtr = const_cast<int*>(constPtr);
+
+// Bad: Avoid using static_cast to implicitly cast away constness
+const int* constPtr = &value;
+int* nonConstPtr = static_cast<int*>(constPtr);
+
+
+/***********************************************************************************************
+33. Rule 5-0-8: Avoid using static_cast to implicitly cast away constness.
+************************************************************************************************/
+// Good: Use const_cast for explicit removal of constness
+const int* constPtr = &value;
+int* nonConstPtr = const_cast<int*>(constPtr);
+
+// Bad: Avoid using static_cast to implicitly cast away constness
+const int* constPtr = &value;
+int* nonConstPtr = static_cast<int*>(constPtr);
+
+
+/***********************************************************************************************
+34. Rule 6-0-4: Avoid hiding overloaded virtual functions in derived classes.
+************************************************************************************************/
+class Base {
+public:
+    virtual void foo() const;
+};
+
+class Derived : public Base {
+public:
+    // Good: Use 'override' keyword to indicate intention to override a base class function
+    void foo() const override;
+    
+    // Bad: Avoid hiding the base class function by using the same name
+    void foo() const;
+};
+
+
+/***********************************************************************************************
+35. Rule 14-0-1: Avoid defining objects with static storage duration in header files.
+************************************************************************************************/
+// Good: Declare the object as 'extern' in the header file and define it in a source file
+// Header file
+extern int globalVariable;
+
+// Source file
+int globalVariable = 42;
+
+// Bad: Avoid defining objects with static storage duration in header files
+// Header file (bad practice)
+static int globalVariable = 42;
+
+
+/***********************************************************************************************
+36. Rule 4-0-3: Avoid narrowing conversions.
+************************************************************************************************/
+// Good: Use explicit type conversion to avoid narrowing
+int value = static_cast<int>(doubleValue);
+
+// Bad: Avoid narrowing conversions
+int value = doubleValue;
+
+
+/***********************************************************************************************
+37. Rule 5-0-9: Avoid using the "mutable" specifier in constant 
+************************************************************************************************/
+// Good: Avoid using the "mutable" specifier in constant classes
+class ConstantClass {
+public:
+    int getValue() const; // No mutable specifier
+private:
+    mutable int cachedValue; // Exception: mutable member used for caching
+};
+
+// Bad: Using the "mutable" specifier in a constant class
+class ConstantClass {
+public:
+    mutable int value; // Error: Mutable specifier in a constant class
+};
+
+
+/***********************************************************************************************
+38. Rule 6-4-1: Avoid hiding overloaded functions with non-virtual functions.
+************************************************************************************************/
+class Base {
+public:
+    virtual void foo() const;
+    virtual void foo(int x) const;
+};
+
+class Derived : public Base {
+public:
+    using Base::foo; // Good: Bring the base class functions into the derived class scope
+
+    void foo() const; // Good: Overload the base class function
+    void foo(int x) const; // Good: Overload the base class function
+
+    void bar(); // Bad: Avoid hiding the base class function with a non-virtual function
+};
+
+
+/***********************************************************************************************
+39. Rule 8-5-1: Avoid using automatic variables in global or namespace scope.
+************************************************************************************************/
+// Good: Avoid using automatic variables in global or namespace scope
+namespace MyNamespace {
+    int myFunction() {
+        int localVariable = 0; // Automatic variable
+        return localVariable;
+    }
+}
+
+// Bad: Avoid using automatic variables in global or namespace scope
+int globalVariable = 0; // Automatic variable
+
+
+/***********************************************************************************************
+40. Rule 16-0-2: Avoid using the #undef directive.
+************************************************************************************************/
+// Good: Avoid using the #undef directive
+#define MAX_VALUE 100
+
+// Bad: Avoid using the #undef directive
+#undef MAX_VALUE
+
+
+/***********************************************************************************************
+41. Rule 2-2-1: Avoid using reserved identifiers.
+************************************************************************************************/
+// Good: Use identifiers that are not reserved keywords
+int value = 10;
+
+// Bad: Avoid using reserved identifiers
+int int = 10;
+
+
+/***********************************************************************************************
+42. Rule 3-1-2: Avoid the use of goto statements.
+************************************************************************************************/
+
+// Good: Use structured control flow without goto statements
+if (condition) {
+    // Code block
+} else {
+    // Code block
+}
+
+// Bad: Avoid using goto statements
+if (condition) {
+    goto label;
+} else {
+    // Code block
+}
+
+label:
+// Code block
+
+/***********************************************************************************************
+43. Rule 6-1-1: Declare destructors that are not virtual as non-public.
+************************************************************************************************/
+class Base {
+public:
+    virtual ~Base(); // Good: Declare the destructor as virtual
+
+protected:
+    ~Base(); // Good: Declare the non-virtual destructor as protected
+};
+
+class Derived : public Base {
+public:
+    ~Derived(); // Bad: Avoid declaring a non-virtual destructor as public
+};
+
+
+/***********************************************************************************************
+42. Rule 8-6-1: Avoid using implicit or explicit recursion in non-trivial functions.
+************************************************************************************************/
+// Good: Avoid using recursion in non-trivial functions
+int factorial(int n) {
+    int result = 1;
+    for (int i = 1; i <= n; ++i) {
+        result *= i;
+    }
+    return result;
+}
+
+// Bad: Avoid using recursion in non-trivial functions
+int factorial(int n) {
+    if (n == 0) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+
+/***********************************************************************************************
+42. Rule 15-2-1: Avoid using dynamic_cast.
+************************************************************************************************/
+class Base {
+public:
+    virtual void foo() const;
+};
+
+class Derived : public Base {
+public:
+    void foo() const override;
+};
+
+void someFunction(const Base& obj) {
+    // Good: Avoid using dynamic_cast
+    obj.foo();
+
+    // Bad: Avoid using dynamic_cast
+    const Derived* derivedObj = dynamic_cast<const Derived*>(&obj);
+    if (derivedObj != nullptr) {
+        derivedObj->foo();
+    }
+}
+
+
+/***********************************************************************************************
+42. Rule 6-2-2: Avoid using dynamic memory allocation functions (e.g., new, delete).
+************************************************************************************************/
+// Good: Use automatic or static storage duration instead of dynamic memory allocation
+void someFunction() {
+    int value; // Automatic storage duration
+    static int staticValue; // Static storage duration
+    // ...
+}
+
+// Bad: Avoid using dynamic memory allocation
+void someFunction() {
+    int* value = new int; // Dynamic memory allocation
+    // ...
+    delete value;
+}
+
+
+
+/***********************************************************************************************
+42. Rule 8-2-2: Avoid using functions with external linkage in namespaces.
+************************************************************************************************/
+// Good: Declare and define functions with internal linkage in a namespace
+namespace MyNamespace {
+    namespace {
+        void internalFunction(); // Function with internal linkage
+    }
+    
+    void myFunction() {
+        internalFunction(); // Call the internal function
+    }
+}
+
+// Bad: Avoid using functions with external linkage in namespaces
+namespace MyNamespace {
+    void externalFunction(); // Function with external linkage
+}
+
+
+/***********************************************************************************************
+42. Rule 11-0-2: Avoid unreachable code.
+************************************************************************************************/
+// Good: Remove unreachable code
+void myFunction(bool condition) {
+    if (condition) {
+        return;
+    } else {
+        // Code block
+    }
+}
+
+// Bad: Avoid unreachable code
+void myFunction(bool condition) {
+    if (condition) {
+        return;
+        // Unreachable code
+    } else {
+        // Code block
+    }
+}
+
+
+/***********************************************************************************************
+42. Rule 15-3-1: Avoid using reinterpret_cast.
+************************************************************************************************/
+// Good: Use static_cast for safer type conversions
+int value = static_cast<int>(doubleValue);
+
+// Bad: Avoid using reinterpret_cast
+int value = reinterpret_cast<int>(doubleValue);
+
+
+/***********************************************************************************************
+42. Rule 6-2-3: Avoid using placement new.
+************************************************************************************************/
+// Good: Avoid using placement new
+void* buffer = operator new(sizeof(int)); // Dynamic memory allocation
+int* value = new(buffer) int(42); // Placement new
+
+// Bad: Avoid using placement new
+int* value = reinterpret_cast<int*>(0x1000); // Specific memory address
+new(value) int(42); // Placement new
+
+/***********************************************************************************************
+43. Rule 18-4-2: Avoid mutable static variables.
+************************************************************************************************/
+class MyClass {
+public:
+    // Good: Avoid mutable static variables
+    static const int CONSTANT_VALUE = 42;
+
+    // Bad: Avoid mutable static variables
+    static int mutableValue;
+};
+
+int MyClass::mutableValue = 10;
+
+
+/***********************************************************************************************
+44. Rule 5-0-4: Avoid defining functions with a variable number of arguments.
+************************************************************************************************/
+// Good: Avoid variable arguments and use function overloading instead
+void myFunction(int value);
+
+void myFunction(int value1, int value2);
+
+// Bad: Avoid defining functions with a variable number of arguments
+void myFunction(int value, ...);
+
+
+/***********************************************************************************************
+45. Rule 6-6-1: Avoid the use of pointers to base class that are not polymorphic.
+************************************************************************************************/
+class Base {
+public:
+    virtual void foo();
+};
+
+class Derived : public Base {
+public:
+    void foo() override;
+};
+
+void myFunction(Base* object) {
+    // Good: Avoid using non-polymorphic pointers to base class
+    object->foo();
+}
+
+void myFunction(Derived* object) {
+    // Good: Use polymorphic pointers to derived class
+    object->foo();
+}
+
+// Bad: Avoid using non-polymorphic pointers to base class
+void myFunction(Base* object) {
+    object->foo();
+}
+
+
+/***********************************************************************************************
+46. Rule 17-0-1: Declare only one variable per declaration.
+************************************************************************************************/
+// Good: Declare one variable per declaration
+int value1;
+int value2;
+
+// Bad: Avoid declaring multiple variables in a single declaration
+int value1, value2;
+
+
+/***********************************************************************************************
+47. Rule 4-0-8: Avoid undefined behavior due to pointer arithmetic.
+************************************************************************************************/
+// Good: Avoid undefined behavior
+int array[5];
+int* ptr = array + 5; // Pointer arithmetic within array bounds
+
+// Bad: Avoid undefined behavior
+int array[5];
+int* ptr = array + 6; // Pointer arithmetic out of array bounds
+
+
+
+/***********************************************************************************************
+49 Rule 5-0-9: Avoid mixing signed and unsigned integers in comparisons
+************************************************************************************************/
+
+// Good: Use consistent signedness in comparisons
+unsigned int uValue = 10;
+int iValue = -5;
+if (uValue >= static_cast<unsigned int>(iValue)) {
+    // ...
+}
+
+// Bad: Avoid mixing signed and unsigned integers in comparisons
+unsigned int uValue = 10;
+int iValue = -5;
+if (uValue >= iValue) {
+    // ...
+}
+
+
+/***********************************************************************************************
+50. Rule 6-2-4: Avoid using the throw statement in destructors.
+************************************************************************************************/
+// Good: Avoid using throw in destructors
+class MyClass {
+public:
+    ~MyClass() noexcept {
+        // ...
+    }
+};
+
+// Bad: Avoid using throw in destructors
+class MyClass {
+public:
+    ~MyClass() {
+        throw std::runtime_error("Error");
+    }
+};
+
+
+/***********************************************************************************************
+51. Rule 6-4-2: Avoid defining a default constructor when other constructors are declared.
+************************************************************************************************/
+class MyClass {
+public:
+    // Good: Avoid defining a default constructor when other constructors are declared
+    MyClass(int value) {
+        // Constructor implementation
+    }
+};
+
+// Bad: Avoid defining a default constructor when other constructors are declared
+class MyClass {
+public:
+    MyClass() {
+        // Default constructor implementation
+    }
+
+    MyClass(int value) {
+        // Constructor implementation
+    }
+};
+
+
+
+/***********************************************************************************************
+52. Rule 7-1-3: Avoid defining a function or function template with unused parameters.
+************************************************************************************************/
+// Good: Avoid defining a function or function template with unused parameters
+void myFunction(int value) {
+    // Function implementation
+}
+
+// Bad: Avoid defining a function or function template with unused parameters
+void myFunction(int value, int unusedParameter) {
+    // Function implementation
+}
+
+/***********************************************************************************************
+53. Rule 10-3-1: Avoid using dynamic_cast for polymorphic type checking.
+************************************************************************************************/
+class Base {
+public:
+    virtual void foo();
+};
+
+class Derived : public Base {
+public:
+    void foo() override;
+};
+
+Base* object = new Derived();
+
+// Good: Avoid using dynamic_cast for polymorphic type checking
+if (Derived* derived = dynamic_cast<Derived*>(object)) {
+    // Perform operations specific to Derived type
+    derived->foo();
+}
+
+// Bad: Avoid using dynamic_cast for polymorphic type checking
+if (dynamic_cast<Derived*>(object)) {
+    // Perform operations specific to Derived type
+    static_cast<Derived*>(object)->foo();
+}
+
+
+/***********************************************************************************************
+54. Rule 18-4-3: Avoid mutable static variables at namespace scope.
+************************************************************************************************/
+// Good: Avoid mutable static variables at namespace scope
+namespace MyNamespace {
+    const int CONSTANT_VALUE = 42;
+}
+
+// Bad: Avoid mutable static variables at namespace scope
+namespace MyNamespace {
+    static int mutableValue = 10;
+}
+
+
+
+/***********************************************************************************************
+55. Rule 4-5-1: Avoid using the "&" operator on the right-hand side of the assignment operator. ( Clarify)
+************************************************************************************************/
+int x = 5;
+int y = 10;
+
+// Good: Use the "&" operator on the left-hand side of the assignment operator
+x &= y;
+
+// Bad: Avoid using the "&" operator on the right-hand side of the assignment operator
+x = x & y;
+
+
+/***********************************************************************************************
+56. Rule 5-0-14: Avoid using the "delete" operator on a pointer that is not allocated by "new".
+************************************************************************************************/
+// Good: Delete a pointer that is allocated by "new"
+int* ptr = new int;
+delete ptr;
+
+// Bad: Avoid deleting a pointer that is not allocated by "new"
+int value = 5;
+delete &value;
+
+Misra RULE: X-Y-Z /Rule Category-Rule Group-Rule ID.
+
+Rule Category: The categories include:
+
+1: Environment
+2: Language Extensions
+3: Types
+4: Arithmetic
+5: Control Flow
+6: Data
+7: Declarations and Definitions
+8: Initialization
+9: The Preprocessor
+
+
+Rule types:
+Required Rules: Mandatory, It address issues that have a high potential for introducing bugs or vulnerabilities
+Advisory Rules: Recommended ,It cover areas such as coding style, naming conventions, and usage of certain language features
+Document Rules: Mandatory, These rules aim to improve the clarity, understandability, and maintainability of the codebase by encouraging appropriate documentation practices. 
+
+Required Rules: Mandatory, address critical issues with high potential for bugs or vulnerabilities.
+Advisory Rules: Recommended, cover coding style and best practices.
+Document Rules: Advisory, encourage appropriate code documentation practices.
